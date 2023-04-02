@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: mdbookshop/order-service
+  IMAGE_NAME: njvision/order-service
   VERSION: latest
 
 jobs:

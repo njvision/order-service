@@ -47,4 +47,10 @@ public class OrderRepositoryR2dbcTests {
                 .verifyComplete();
     }
 
+    @Test
+    void  findOrderByIdWhenNotExisting() {
+        StepVerifier.create(orderRepository.findById(134L))
+                .expectNextCount(0)
+                .verifyComplete();
+    }
 }
