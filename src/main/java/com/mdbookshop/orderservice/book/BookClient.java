@@ -12,7 +12,7 @@ import java.time.Duration;
 public class BookClient {
 
     private static final String BOOKS_ROOT_API = "/books/";
-    private WebClient webClient;
+    private final WebClient webClient;
 
     public BookClient(WebClient webClient) {
         this.webClient = webClient;

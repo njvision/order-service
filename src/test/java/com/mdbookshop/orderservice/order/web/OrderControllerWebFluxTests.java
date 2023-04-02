@@ -1,7 +1,5 @@
 package com.mdbookshop.orderservice.order.web;
 
-import com.mdbookshop.orderservice.order.domain.OrderController;
-import com.mdbookshop.orderservice.order.web.OrderRequest;
 import com.mdbookshop.orderservice.order.domain.Order;
 import com.mdbookshop.orderservice.order.domain.OrderService;
 import com.mdbookshop.orderservice.order.domain.OrderStatus;
@@ -27,7 +25,7 @@ class OrderControllerWebFluxTests {
 
     @Test
     void whenBookNotAvailableThenRejectOrder() {
-        var orderRequest = new OrderRequest("1234567890", 3);
+        var orderRequest = new OrderRequest("1234567890", 1);
         var expectedOrder = OrderService.buildRejectedOrder(orderRequest.isbn(), orderRequest.quantity());
         given(orderService.submitOrder(orderRequest.isbn(), orderRequest.quantity()))
                 .willReturn(Mono.just(expectedOrder));
@@ -40,7 +38,7 @@ class OrderControllerWebFluxTests {
                 .expectStatus().is2xxSuccessful()
                 .expectBody(Order.class).value(actualOrder -> {
                     assertThat(actualOrder).isNotNull();
-                    assertThat(actualOrder.orderStatus()).isEqualTo(OrderStatus.REJECTED);
+                    assertThat(actualOrder.status()).isEqualTo(OrderStatus.REJECTED);
                 });
     }
 }

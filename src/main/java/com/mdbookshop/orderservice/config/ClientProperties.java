@@ -7,5 +7,5 @@ import java.net.URI;
 @ConfigurationProperties(prefix = "md")
 public record ClientProperties(
         @NotNull
-       URI catalogServiceUri
+        URI catalogServiceUri
 ) { }

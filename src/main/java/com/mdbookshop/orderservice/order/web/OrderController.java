@@ -1,5 +1,7 @@
-package com.mdbookshop.orderservice.order.domain;
+package com.mdbookshop.orderservice.order.web;
 
+import com.mdbookshop.orderservice.order.domain.Order;
+import com.mdbookshop.orderservice.order.domain.OrderService;
 import com.mdbookshop.orderservice.order.web.OrderRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

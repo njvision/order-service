@@ -41,7 +41,7 @@ public class OrderRepositoryR2dbcTests {
         Order order = OrderService.buildRejectedOrder("1234567890", 3);
 
         StepVerifier.create(orderRepository.save(order))
-                .expectNextMatches(b -> b.orderStatus().equals(OrderStatus.REJECTED))
+                .expectNextMatches(b -> b.status().equals(OrderStatus.REJECTED))
                 .verifyComplete();
     }
 
