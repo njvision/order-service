@@ -2,6 +2,7 @@ package com.mdbookshop.orderservice.order.domain;
 
 import com.mdbookshop.orderservice.config.DataConfig;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -20,6 +21,7 @@ public class OrderRepositoryR2dbcTests {
     @Container
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:14.4"));
 
+    @Autowired
     private OrderRepository orderRepository;
 
     @DynamicPropertySource
@@ -38,7 +40,7 @@ public class OrderRepositoryR2dbcTests {
     @Test
     void createRejectedOrder() {
 
-        Order order = OrderService.buildRejectedOrder("1234567890", 3);
+        Order order = OrderService.buildRejectedOrder("1234567890", 1);
 
         StepVerifier.create(orderRepository.save(order))
                 .expectNextMatches(b -> b.status().equals(OrderStatus.REJECTED))

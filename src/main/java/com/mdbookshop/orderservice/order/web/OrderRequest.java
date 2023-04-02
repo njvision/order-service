@@ -11,6 +11,6 @@ public record OrderRequest(
 
     @NotNull(message = "The book quantity must be defined.")
     @Min(value = 1, message = "You must order at least 1 item.")
-    @Max(value = 1, message = "You must order more than 5 item.")
+    @Max(value = 5, message = "You must order more than 5 item.")
     Integer quantity
 ) { }
