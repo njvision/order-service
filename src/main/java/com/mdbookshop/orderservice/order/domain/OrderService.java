@@ -3,6 +3,7 @@ package com.mdbookshop.orderservice.order.domain;
 import com.mdbookshop.orderservice.book.Book;
 import com.mdbookshop.orderservice.book.BookClient;
 import org.springframework.stereotype.Service;
+import com.mdbookshop.orderservice.order.event.OrderDispatchedMessage;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -35,5 +36,27 @@ public class OrderService {
 
     public static Order buildRejectedOrder(String isbn, int quantity) {
         return Order.of(isbn, null, null, quantity, OrderStatus.REJECTED);
+    }
+
+    public Flux<Order> consumeOrderDispatchedEvent(Flux<OrderDispatchedMessage> flux) {
+        return flux
+                .flatMap(message -> orderRepository.findById(message.orderId()))
+                .map(this:: buildDispatchedOrder)
+                .flatMap(orderRepository::save);
+
+    }
+
+    public Order buildDispatchedOrder(Order existingOrder) {
+        return new Order(
+                existingOrder.id(),
+                existingOrder.bookIsbn(),
+                existingOrder.bookName(),
+                existingOrder.bookPrice(),
+                existingOrder.quantity(),
+                OrderStatus.DISPATCHED,
+                existingOrder.createdDate(),
+                existingOrder.lastModifiedDate(),
+                existingOrder.version()
+        );
     }
 }
