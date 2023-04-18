@@ -23,7 +23,7 @@ public class OrderJsonTests {
     void testSerialize() throws IOException {
         Instant now = Instant.now();
         var order = new Order(394L, "1234567890", "Book Name", 9.90, 1,
-                OrderStatus.ACCEPTED, now, now, 21);
+                OrderStatus.ACCEPTED, now, now, null,null, 21);
 
         JsonContent<Order> writeOrder = json.write(order);
 
