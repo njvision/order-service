@@ -23,7 +23,7 @@ public class OrderJsonTests {
     void testSerialize() throws IOException {
         Instant now = Instant.now();
         var order = new Order(394L, "1234567890", "Book Name", 9.90, 1,
-                OrderStatus.ACCEPTED, now, now, null,null, 21);
+                OrderStatus.ACCEPTED, now, now, "john","alice", 21);
 
         JsonContent<Order> writeOrder = json.write(order);
 
@@ -35,6 +35,8 @@ public class OrderJsonTests {
         assertThat(writeOrder).extractingJsonPathStringValue("@.status").isEqualTo(order.status().toString());
         assertThat(writeOrder).extractingJsonPathStringValue("@.createdDate").isEqualTo(order.createdDate().toString());
         assertThat(writeOrder).extractingJsonPathStringValue("@.lastModifiedDate").isEqualTo(order.lastModifiedDate().toString());
+        assertThat(writeOrder).extractingJsonPathStringValue("@.createdBy").isEqualTo(order.createdBy());
+        assertThat(writeOrder).extractingJsonPathStringValue("@.lastModifiedBy").isEqualTo(order.lastModifiedBy());
         assertThat(writeOrder).extractingJsonPathNumberValue("@.version").isEqualTo(order.version());
     }
 }
