@@ -12,7 +12,9 @@ public class SecurityConfig {
     @Bean
     SecurityWebFilterChain webFilterChain(ServerHttpSecurity http) {
         return http
-                .authorizeExchange(exchange  -> exchange.anyExchange().authenticated())
+                .authorizeExchange(exchange -> exchange
+                        .pathMatchers("/actuator/**").permitAll()
+                        .anyExchange().authenticated())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt)
                 .requestCache(requestCacheSpec -> requestCacheSpec.requestCache(NoOpServerRequestCache.getInstance()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
