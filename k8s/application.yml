@@ -1,0 +1,14 @@
+polar:
+  catalog-service-uri: http://catalog-service
+spring:
+  flyway:
+    url: jdbc:postgresql://md-postgres/mddb_order
+  r2dbc:
+    url: r2dbc:postgresql://md-postgres/mddb_order
+  rabbitmq:
+    host: md-rabbitmq
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://md-keycloak/realms/MdBookshop
